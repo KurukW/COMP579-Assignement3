@@ -39,16 +39,23 @@ def to_dirac(distribution, n_output):
 
     y_dirac = [0 for i in x_dirac]
 
+
+    def h(i,z):
+        if i == 1:
+            if z <= 0:
+                return 1
+        elif i == len(x_dirac)-1:
+            if z >= 0:
+                return 1
+        return max(0, 1-abs(z))
+
     #Assign value to locations
     for elt in distribution:
+        #elt is the position of one elt of the distribution
         for e in range(len(x_dirac)-1):
-            if elt > x_dirac[e] and elt < x_dirac[e+1]:
-                low = x_dirac[e]
-                high = x_dirac[e+1]
-                
-                y_dirac[e]   += (elt - x_dirac[e])/(x_dirac[e+1] - x_dirac[e]) 
-                y_dirac[e+1] += (x_dirac[e+1] - elt)/(x_dirac[e+1] - x_dirac[e]) 
-                continue
+            z = (elt - x_dirac[e])/(x_dirac[e+1] - x_dirac[e])
+            #Position of our elt in regard to the categorical impulsion we're looking
+            y_dirac[e] += h(e,z)
         
 
     return x_dirac, y_dirac 
