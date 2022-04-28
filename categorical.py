@@ -5,18 +5,18 @@ from numpy.random import normal
 
 
 # Generation of de distribution
-# data1 = []
-# data2 = []
-# data3 = []
-# data4 = []
+data1 = []
+data2 = []
+data3 = []
+data4 = []
 
-# for i in range(100000):
-#     data1.append(normal(0,0.8))
-#     data2.append(normal(2,2))
-#     data3.append(normal(-4,1))
-#     data4.append(normal(5,2))
+for i in range(100000):
+    data1.append(normal(0,0.8))
+    data2.append(normal(2,2))
+    data3.append(normal(-4,1))
+    data4.append(normal(5,2))
 
-# data = data1 + data2 + data3 + data4
+data = data1 + data2 + data3 + data4
 
 
 
@@ -75,8 +75,9 @@ def divide_list(my_list, factor):
 
 #Solution to the question:
 def categorical(mu, var, m):
-    n_elt = 500000
-    distr = [normal(mu,var) for i in range(n_elt)]
+    n_elt = 400000
+    # distr = [normal(mu,var) for i in range(n_elt)]
+    distr = data
     locations, probabilities = to_dirac(distr, m)
     probabilities = divide_list(probabilities, n_elt)
 
@@ -87,7 +88,7 @@ def categorical(mu, var, m):
     plt.show()
 
 
-categorical(2, 4, 100)
+categorical(2, 4, 20)
 
 
 
